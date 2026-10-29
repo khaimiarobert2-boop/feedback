@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>TrendyB Client Feedback</title>
+  <style>
+    :root {
+      --bg: #f7f2ec;
+      --card: #fffdfa;
+      --text: #2a1f24;
+      --muted: #7a6b70;
+      --line: #e6dcd2;
+      --accent: #7a1f4b;
+      --on: #fff;
+      --sel: #f3e3ec;
+      color-scheme: light;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+
+    @media (prefers-color-scheme:dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #171214;
+        --card: #221a1e;
+        --text: #f4ece9;
+        --muted: #b3a3a8;
+        --line: #3a2e34;
+        --accent: #e58ab8;
+        --on: #171214;
+        --sel: #3a2432;
+        color-scheme: dark
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #171214;
+      --card: #221a1e;
+      --text: #f4ece9;
+      --muted: #b3a3a8;
+      --line: #3a2e34;
+      --accent: #e58ab8;
+      --on: #171214;
+      --sel: #3a2432;
+      color-scheme: dark
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.55
+    }
+
+    main {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 20px 14px 56px
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px
+    }
+
+    h1 {
+      font-size: 1.7rem;
+      margin: 0;
+      color: var(--accent);
+      letter-spacing: .02em
+    }
+
+    .tag {
+      color: var(--muted);
+      font-style: italic;
+      margin: 2px 0 14px
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      margin: 0 0 6px;
+      color: var(--accent)
+    }
+
+    p {
+      margin: 0 0 10px
+    }
+
+    .ui,
+    label,
+    input,
+    select,
+    textarea,
+    button {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+    }
+
+    .q {
+      margin-top: 20px
+    }
+
+    .qt {
+      font-weight: 700;
+      font-size: 1rem
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: .85rem;
+      margin: 2px 0 8px;
+      font-family: system-ui, sans-serif
+    }
+
+    .opts {
+      display: grid;
+      gap: 8px
+    }
+
+    .opt {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-size: .95rem;
+      background: var(--bg)
+    }
+
+    .opt.on {
+      background: var(--sel);
+      border-color: var(--accent)
+    }
+
+    .opt input {
+      accent-color: var(--accent);
+      width: 18px;
+      height: 18px;
+      flex: none
+    }
+
+    input[type=text],
+    textarea,
+    select {
+      width: 100%;
+      font-size: 1rem;
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 11px 12px
+    }
+
+    textarea {
+      min-height: 84px;
+      resize: vertical
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px
+    }
+
+    .oth {
+      margin-top: 8px
+    }
+
+    .scale {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px
+    }
+
+    .scale button {
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 12px 0;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--text);
+      cursor: pointer
+    }
+
+    .scale button.on {
+      background: var(--accent);
+      color: var(--on);
+      border-color: var(--accent)
+    }
+
+    .ends {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: .8rem;
+      margin-top: 4px;
+      font-family: system-ui, sans-serif
+    }
+
+    .mrow {
+      display: grid;
+      grid-template-columns: 1fr 130px;
+      gap: 10px;
+      align-items: center;
+      margin-top: 8px;
+      font-size: .92rem;
+      font-family: system-ui, sans-serif
+    }
+
+    .mrow select {
+      padding: 8px
+    }
+
+    .btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      width: 100%;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--on);
+      background: var(--accent);
+      border: 0;
+      border-radius: 12px;
+      padding: 15px;
+      cursor: pointer;
+      margin-top: 18px
+    }
+
+    .btn.alt {
+      background: none;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      margin-top: 10px
+    }
+
+    .err {
+      color: #d6336c;
+      font-family: system-ui, sans-serif;
+      font-size: .92rem;
+      margin-top: 10px
+    }
+
+    .sig {
+      font-style: italic;
+      margin-top: 12px
+    }
+
+    [hidden] {
+      display: none !important
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <section class="card">
+      <h1>TrendyB Fashion House</h1>
+      <p class="tag">Your Style. Your Experience. Our Next Chapter.</p>
+      <p>Dear TrendyB Family,</p>
+      <p>As we plan for 2027, I would love to hear from you.</p>
+      <p>Some of you have been part of TrendyB’s journey for years, through custom-made outfits, special occasions,
+        fittings, referrals and visits to our workshop.</p>
+      <p>As TrendyB grows within the wider <b>Sebuleni Collective</b>, your feedback will help us improve our designs,
+        customer experience, services and how we connect with you.</p>
+      <p>This survey takes about 5–7 minutes. Your responses will be treated confidentially and used to guide our
+        planning.</p>
+      <p>Thank you for being part of our journey.</p>
+      <p class="sig">With love,<br>Founder, TrendyB Fashion House &amp; Sebuleni Collective</p>
+      <label class="qt ui" for="nm" style="display:block;margin-top:18px">Your name</label>
+      <input type="text" id="nm" maxlength="80" autocomplete="name" placeholder="e.g. Jane Wanjiku">
+    </section>
+
+    <div id="form"></div>
+
+    <section class="card" id="sendCard">
+      <div id="err" class="err" hidden></div>
+      <a class="btn ui" id="send" href="#" target="_blank" rel="noopener">Send my feedback on WhatsApp</a>
+      <p class="hint" style="margin-top:10px">This opens WhatsApp with your answers ready. Just tap send.</p>
+    </section>
+
+    <section class="card" id="thanks" hidden>
+      <h2>Thank you for taking the time to share your thoughts.</h2>
+      <p>Your feedback will help shape TrendyB’s next chapter, from the clothes we create to the experiences we offer.
+      </p>
+      <p>We look forward to growing with you.</p>
+      <p class="sig"><b>TrendyB Fashion House | Part of Sebuleni Collective</b></p>
+      <p class="hint">WhatsApp didn’t open? Copy your answers and send them to us there.</p>
+      <textarea id="copyBox" readonly aria-label="Your answers"></textarea>
+      <button class="btn alt ui" id="copy" type="button">Copy my answers</button>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      // >>> Replace with the number that should receive responses (country code, digits only, no + or spaces)
+      var WHATSAPP = "254701559240";
+
+      var OTHER = /^Other/;
+      var RATE = ["Very poor", "Poor", "Fair", "Good", "Excellent", "Not applicable"];
+      var SHOW3 = ["6–12 months ago", "More than a year ago", "I have enquired but never purchased", "I haven’t purchased yet"];
+      var QS = [
+        { sec: "Section 1: Your Relationship With TrendyB" },
+        { id: "q1", n: 1, s: "Discovered TrendyB via", t: "How did you first discover TrendyB?", type: "one", hint: "Select one", o: ["Through a friend or family referral", "Through the founder personally", "Instagram or Facebook", "At an event or pop-up", "Through a retail partner", "Other (please specify)"] },
+        { id: "q2", n: 2, s: "Last purchase", t: "When did you last purchase from TrendyB?", type: "one", o: ["Within the last 3 months", "3–6 months ago", "6–12 months ago", "More than a year ago", "I have enquired but never purchased", "I haven’t purchased yet"] },
+        { id: "q3", n: 3, s: "Purchased/enquired about", t: "What have you purchased or enquired about?", type: "multi", hint: "Select all that apply", o: ["Made-to-measure outfits", "Ready-to-wear outfits", "Corporate or office wear", "Occasion or event outfits", "Casual wear", "Styling or wardrobe advice", "Other (please specify)"] },
+        { sec: "Section 2: Your Customer Experience" },
+        { id: "q4", n: 4, s: "Overall satisfaction", t: "Overall, how satisfied have you been with your TrendyB experience?", type: "scale", req: 1 },
+        { id: "q5", n: 5, s: "Ratings", t: "How would you rate the following?", type: "matrix", rows: [["Quality of designs", "Designs"], ["Fabric selection", "Fabric"], ["Fit and comfort", "Fit"], ["Finishing and craftsmanship", "Finishing"], ["Value for money", "Value"], ["Customer service and communication", "Service"], ["Timeliness of delivery", "Delivery"], ["Fitting and alteration experience", "Alterations"], ["Variety of styles", "Variety"]] },
+        { id: "q6", n: 6, s: "Loves most", t: "What is the one thing you love most about TrendyB?", type: "text" },
+        { id: "q7", n: 7, s: "Would improve", t: "What is the one thing you would most like us to improve?", type: "text" },
+        { sec: "Section 3: Reconnecting With Customers", s3: 1 },
+        { id: "q8", n: 8, s: "What prevented shopping", t: "What has prevented you from shopping with TrendyB recently?", type: "multi", hint: "Select all that apply", ex: "Prefer not to say", s3: 1, o: ["I haven’t seen designs that suit my style", "Prices are beyond my current budget", "I prefer other clothing options", "I haven’t had an occasion to shop", "The workshop location is inconvenient", "I had challenges with fitting or sizing", "I had challenges with delivery timelines", "I had an unsatisfactory customer experience", "I wasn’t aware of new collections or products", "I have been busy or simply haven’t gotten around to it", "Other (please specify)", "Prefer not to say"] },
+        { id: "q9", n: 9, s: "Would bring me back", t: "What would encourage you to shop with TrendyB again?", type: "multi", max: 3, hint: "Select up to three", s3: 1, o: ["New designs and collections", "More everyday and casual outfits", "More corporate wear", "Better fitting and alteration services", "More affordable options", "Flexible appointment times", "Easier online shopping", "Personal styling services", "Exclusive previews and client events", "Improved communication and follow-up", "Other (please specify)"] },
+        { sec: "Section 4: What You Would Love in 2027" },
+        { id: "q10", n: 10, s: "Categories wanted", t: "Which clothing categories would you love TrendyB to introduce or expand?", type: "multi", max: 4, hint: "Select up to four", o: ["Corporate suits and separates", "Shift dresses", "Trousers and palazzo pants", "Casual and easy-wear designs", "Denim pieces", "Occasion and statement dresses", "Skirts and blouses", "Coordinated sets", "Travel-friendly wardrobes", "Accessories such as belts, bags and jewellery", "Other (please specify)"] },
+        { id: "q11", n: 11, s: "Matters most in an outfit", t: "What matters most when choosing an outfit?", type: "multi", max: 3, hint: "Select up to three", o: ["Fit and comfort", "Unique design", "Fabric quality", "Price", "Versatility", "Craftsmanship", "Timeless style", "Sustainability", "Ease of care"] },
+        { id: "q12", n: 12, s: "Comfortable price (ready-to-wear)", t: "What price range would you generally be comfortable paying for a quality ready-to-wear outfit?", type: "one", o: ["Below KSh 5,000", "KSh 5,000–9,999", "KSh 10,000–14,999", "KSh 15,000–19,999", "KSh 20,000–29,999", "KSh 30,000 and above", "Depends on the garment"] },
+        { sec: "Section 5: Discovering Sebuleni Collective" },
+        { id: "q13", n: 13, s: "Aware of Sebuleni", t: "Were you aware that TrendyB is part of Sebuleni Collective, a growing lifestyle and creative ecosystem?", type: "one", o: ["Yes, I know about Sebuleni Collective", "I have heard the name but don’t know much about it", "No, this is my first time hearing about it"] },
+        { id: "q14", n: 14, s: "Sebuleni interests", t: "Which of these Sebuleni experiences would interest you?", type: "multi", hint: "Select all that apply", o: ["TrendyB — ready-to-wear and made-to-measure fashion", "StyleDrop — curated pre-loved fashion, personal styling and wardrobe consulting", "Sebuleni Duka — a marketplace for selected Kenyan brands and makers", "Sebuleni Conversations — storytelling, learning and community experiences", "Sebuleni Roams — travel, culture and discovery", "The Style Circle — intimate fashion viewings and styling experiences", "I would like to learn more before choosing"] },
+        { sec: "Section 6: Staying Connected" },
+        { id: "q15", n: 15, s: "Prefers engaging via", t: "How would you prefer to engage with TrendyB and Sebuleni in 2027?", type: "multi", max: 3, hint: "Select up to three", o: ["Personal WhatsApp updates", "New collection previews", "Private styling appointments", "Small fashion gatherings and The Style Circle", "Workshop or showroom visits", "Online shopping through the website", "Instagram updates", "Occasional newsletters"] },
+        { id: "q16", n: "", s: "Founder may contact me", t: "Would you be comfortable with the founder contacting you personally to discuss your feedback?", type: "one", hint: "Optional", follow: 1, o: ["Yes, via WhatsApp", "Yes, via phone call", "No, thank you"] }
+      ];
+
+      var $ = function (i) { return document.getElementById(i); };
+      var ans = {}, oth = {}, sec3 = [], phone = "";
+      function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x !== undefined) e.textContent = x; return e; }
+
+      var form = $("form"), card = null;
+      QS.forEach(function (q) {
+        if (q.sec) {
+          card = el("section", "card"); card.appendChild(el("h2", "", q.sec));
+          if (q.s3) {
+            card.id = "sec3"; sec3.push(card); card.hidden = true;
+            var n = el("p", "hint", "Shown because you haven’t purchased in the last six months. Your honest answers help us a lot."); card.appendChild(n);
+          }
+          form.appendChild(card); return;
+        }
+        var box = el("div", "q");
+        box.appendChild(el("div", "qt", (q.n ? q.n + ". " : "") + q.t));
+        if (q.hint) box.appendChild(el("div", "hint", q.hint));
+        var ctl = el("div", "ui");
+        if (q.type === "one" || q.type === "multi") buildChoice(q, ctl);
+        else if (q.type === "scale") buildScale(q, ctl);
+        else if (q.type === "matrix") buildMatrix(q, ctl);
+        else {
+          var ta = document.createElement("textarea"); ta.setAttribute("aria-label", q.t); ta.maxLength = 600;
+          ta.addEventListener("input", function () { ans[q.id] = ta.value.trim(); }); ctl.appendChild(ta);
+        }
+        box.appendChild(ctl);
+        if (q.s3) { q.node = box; }
+        card.appendChild(box);
+      });
+
+      function buildChoice(q, ctl) {
+        var wrap = el("div", "opts"), labs = [];
+        var otx = document.createElement("input"); otx.type = "text"; otx.className = "oth"; otx.placeholder = "Please specify"; otx.maxLength = 120; otx.hidden = true;
+        otx.addEventListener("input", function () { oth[q.id] = otx.value.trim(); });
+        q.o.forEach(function (o) {
+          var lab = el("label", "opt"), inp = document.createElement("input");
+          inp.type = q.type === "one" ? "radio" : "checkbox"; inp.name = q.id; inp.value = o;
+          lab.append(inp, el("span", "", o)); wrap.appendChild(lab); labs.push([o, inp, lab]);
+          inp.addEventListener("change", function () {
+            if (q.type === "multi") {
+              var on = labs.filter(function (l) { return l[1].checked; });
+              if (q.max && on.length > q.max) { inp.checked = false; return; }
+              if (q.ex) labs.forEach(function (l) { if (inp.checked && l[0] === q.ex && o !== q.ex) l[1].checked = false; if (inp.checked && o === q.ex && l[0] !== q.ex) l[1].checked = false; });
+            }
+            var sel = labs.filter(function (l) { return l[1].checked; }).map(function (l) { return l[0]; });
+            ans[q.id] = q.type === "one" ? sel[0] : sel;
+            labs.forEach(function (l) { l[2].classList.toggle("on", l[1].checked); });
+            otx.hidden = !sel.some(function (v) { return OTHER.test(v); });
+            if (q.id === "q2") sec3.forEach(function (s) { s.hidden = SHOW3.indexOf(o) < 0; });
+            if (q.follow) ph.hidden = !(sel[0] && /^Yes/.test(sel[0]));
+          });
+        });
+        ctl.append(wrap, otx);
+        if (q.follow) {
+          var ph = document.createElement("input"); ph.type = "text"; ph.className = "oth"; ph.hidden = true; ph.placeholder = "Best phone / WhatsApp number (optional)"; ph.maxLength = 30;
+          ph.addEventListener("input", function () { phone = ph.value.trim(); }); ctl.appendChild(ph);
+        }
+      }
+      function buildScale(q, ctl) {
+        var g = el("div", "scale"), bs = [];
+        for (var i = 1; i <= 5; i++) (function (i) {
+          var b = el("button", "", String(i)); b.type = "button"; b.setAttribute("aria-label", i + " out of 5");
+          b.addEventListener("click", function () { ans[q.id] = i; bs.forEach(function (x, k) { x.classList.toggle("on", k === i - 1); }); });
+          g.appendChild(b); bs.push(b);
+        })(i);
+        var e = el("div", "ends"); e.append(el("span", "", "Very dissatisfied"), el("span", "", "Very satisfied"));
+        ctl.append(g, e);
+      }
+      function buildMatrix(q, ctl) {
+        ans[q.id] = {};
+        q.rows.forEach(function (r) {
+          var row = el("div", "mrow"), sel = document.createElement("select");
+          sel.setAttribute("aria-label", r[0]);
+          var d = el("option", "", "Select…"); d.value = ""; sel.appendChild(d);
+          RATE.forEach(function (x) { var o = el("option", "", x); o.value = x; sel.appendChild(o); });
+          sel.addEventListener("change", function () { ans[q.id][r[1]] = sel.value; });
+          row.append(el("span", "", r[0]), sel); ctl.appendChild(row);
+        });
+      }
+
+      function fmt(q) {
+        var v = ans[q.id];
+        if (v === undefined || v === "" || (Array.isArray(v) && !v.length)) return "";
+        if (q.type === "scale") return v + "/5";
+        if (q.type === "matrix") return Object.keys(v).filter(function (k) { return v[k]; }).map(function (k) { return k + " " + v[k]; }).join(", ");
+        var o = oth[q.id] ? function (x) { return OTHER.test(x) ? "Other: " + oth[q.id] : x; } : function (x) { return x; };
+        return Array.isArray(v) ? v.map(o).join("; ") : (q.type === "one" ? o(v) : v);
+      }
+      function message() {
+        var L = ["*TrendyB Client Feedback*", "Name: " + $("nm").value.trim()];
+        var show3 = !sec3[0].hidden;
+        QS.forEach(function (q) {
+          if (!q.id || (q.s3 && !show3)) return;
+          var t = fmt(q); if (!t) return;
+          if (q.follow && phone) t += " (" + phone + ")";
+          L.push((q.n ? q.n + ". " : "") + q.s + ": " + t);
+        });
+        return L.join("\n");
+      }
+
+      var send = $("send");
+      send.addEventListener("click", function (ev) {
+        var err = $("err"), msg = "";
+        if (!$("nm").value.trim()) msg = "Please enter your name at the top.";
+        else if (!ans.q4) msg = "Please tell us how satisfied you have been (question 4).";
+        if (msg) { ev.preventDefault(); err.textContent = msg; err.hidden = false; window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+        err.hidden = true;
+        var m = message();
+        send.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(m);
+        $("copyBox").value = m; $("thanks").hidden = false;
+        setTimeout(function () { $("thanks").scrollIntoView({ behavior: "smooth" }); }, 400);
+      });
+      $("copy").addEventListener("click", function () {
+        var b = $("copy"), box = $("copyBox");
+        box.select();
+        var done = function () { b.textContent = "Copied ✓"; };
+        try { navigator.clipboard.writeText(box.value).then(done, function () { document.execCommand("copy"); done(); }); }
+        catch (e) { try { document.execCommand("copy"); done(); } catch (e2) { } }
+      });
+    })();
+  </script>
+</body>
+
+</html>
